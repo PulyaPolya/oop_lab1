@@ -7,11 +7,11 @@ public class Square_Matrix
     private int _size;
     
 
-   private double[,] _array;
+    private double[,] _array;
 
-    public Square_Matrix()
+    public Square_Matrix(int size)
     {
-      _size = size;
+        _size = size;
         _array = new double[size, size];
         for (int i = 0; i < _size; i++)
         {
@@ -47,7 +47,7 @@ public class Square_Matrix
         return c;
 
     }
-  public static Square_Matrix Multiply(Square_Matrix a, Square_Matrix b)
+    public static Square_Matrix Multiply(Square_Matrix a, Square_Matrix b)
     {
         try
         {
@@ -79,7 +79,16 @@ public class Square_Matrix
     }
     public void Invert()
     {
-       double t;
+        /*double[,] temp = new double[_size, _size];
+        
+        for (int i = 0; i < _size; i++)
+        {
+            for (int j = 0; j < _size; j++)
+            {
+                temp[i, j] = _array[i,j];
+            }
+        }*/
+        double t;
         for (int i = 0; i < _size; i++)
         {
             for (int j = 0; j < i; j++)
@@ -89,6 +98,7 @@ public class Square_Matrix
                 _array[j, i] = t;
             }
         }
+        //delete[] temp;
 
     }
     public int Get_size()
@@ -125,7 +135,7 @@ public class Square_Matrix
     {
         return _array[i, j];
     }
-      public override string ToString()
+    public override string ToString()
     {
         string t = "";
         for (int i = 0; i < _size; i++)
@@ -137,7 +147,20 @@ public class Square_Matrix
         }
         return t;
     }
-    public bool Equals(Square_Matrix a, Square_Matrix b)
+    /*public string Get_String()
+    {
+        string t="";
+        double k;
+        for (int i = 0; i < _size; i++)
+        { for (int j = 0; j < _size; j++)
+            {
+                k = _array[i, j];
+                t =t+"#"+ Convert.ToString(k);
+                    }
+        }
+        return t;
+    }*/
+   /* public bool Equals(Square_Matrix a, Square_Matrix b)
     {
         if (b._size != a._size)
             return false;
@@ -158,7 +181,7 @@ public class Square_Matrix
         }
         return true;    
 
-    }
+    }*/
 
     public void SetOneValue(double v)
     {
