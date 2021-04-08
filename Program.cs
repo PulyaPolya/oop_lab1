@@ -9,9 +9,7 @@ class Program
 
     static void Main(string[] args)
     {
-        Square_Matrix m = new Square_Matrix();
-       
-      int s;
+        int s;
         s = Convert.ToInt32(Console.ReadLine());
         Square_Matrix m = new Square_Matrix(s);
         m.SetOneValue(1);
@@ -20,6 +18,19 @@ class Program
     }
    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
