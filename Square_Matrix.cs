@@ -7,11 +7,12 @@ public class Square_Matrix
     private int _size;
     
 
-    private double[,] _array = new double[100, 100];
+   private double[,] _array;
 
     public Square_Matrix()
     {
-        _size = 3;
+      _size = size;
+        _array = new double[size, size];
         for (int i = 0; i < _size; i++)
         {
             for (int j = 0; j < _size; j++)
@@ -21,13 +22,11 @@ public class Square_Matrix
             }
         }
     }
-    public void Add(Square_Matrix a)
+    public static Square_Matrix Add(Square_Matrix a, Square_Matrix b)
     {
-        int s = a.Get_size();
-
         try
         {
-            if (s != _size)
+            if (a.Get_size() != b.Get_size())
             {
                 throw new Exception("Wrong size");
             }
@@ -36,23 +35,23 @@ public class Square_Matrix
         {
             Console.WriteLine("Wrong size");
         }
+        Square_Matrix c = new Square_Matrix(a.Get_size());
 
-
-        for (int i = 0; i < _size; i++)
+        for (int i = 0; i < a.Get_size(); i++)
         {
-            for (int j = 0; j < _size; j++)
+            for (int j = 0; j < a.Get_size(); j++)
             {
-                _array[i, j] = a._array[i, j] + _array[i, j];
+                c._array[i, j] = a._array[i, j] + b._array[i, j];
             }
         }
-
+        return c;
 
     }
-    public void Multiply(Square_Matrix a)
+  public static Square_Matrix Multiply(Square_Matrix a, Square_Matrix b)
     {
         try
         {
-            if (Get_size() != a._size)
+            if (b._size != a._size)
             {
                 throw new Exception("Wrong size");
             }
@@ -61,6 +60,7 @@ public class Square_Matrix
         {
             Console.WriteLine("Wrong size");
         }
+        Square_Matrix c = new Square_Matrix(a.Get_size());
         for (int i = 0; i < a._size; i++)
         {
             for (int j = 0; j < a._size; j++)
@@ -68,29 +68,25 @@ public class Square_Matrix
                 for (int k = 0; k < a._size; k++)
                 {
                     {
-                        _array[i, j] += _array[i, k] * a._array[k, j];
+                        c._array[i, j] += b._array[i, k] * a._array[k, j];
 
                     }
                 }
 
             }
         }
+        return c;
     }
     public void Invert()
     {
-        double[,] temp = new double[100, 100];
+       double t;
         for (int i = 0; i < _size; i++)
         {
-            for (int j = 0; j < _size; j++)
+            for (int j = 0; j < i; j++)
             {
-                temp[i, j] = _array[i,j];
-            }
-        }
-        for (int i = 0; i < _size; i++)
-        {
-            for (int j = 0; j < _size; j++)
-            {
-                _array[i, j] = temp[j, i];
+                t=_array[i, j];
+                _array[i, j] = _array[j, i];
+                _array[j, i] = t;
             }
         }
 
@@ -129,16 +125,15 @@ public class Square_Matrix
     {
         return _array[i, j];
     }
-    public string Get_String()
+      public override string ToString()
     {
-        string t="";
-        double k;
+        string t = "";
         for (int i = 0; i < _size; i++)
-        { for (int j = 0; j < _size; j++)
+        {
+            for (int j = 0; j < _size; j++)
             {
-                k = _array[i, j];
-                t =t+"#"+ Convert.ToString(k);
-                    }
+                t = t + "#" + _array[i, j].ToString();
+            }
         }
         return t;
     }
